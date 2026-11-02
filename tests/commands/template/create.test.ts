@@ -1,0 +1,93 @@
+import { spawnSync } from 'node:child_process'
+import * as fs from 'node:fs/promises'
+import * as os from 'node:os'
+import * as path from 'node:path'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
+
+const apiKey = process.env.BOXFAB_API_KEY
+const domain = process.env.BOXFAB_DOMAIN || 'boxfab.io'
+
+const cliPath = path.join(process.cwd(), 'dist', 'index.js')
+const templateName = `cli-create-api-key-test-${Date.now()}`
+
+test('rejects the retired disk flag without a stack trace', () => {
+  const result = spawnSync(
+    'node',
+    [
+      cliPath,
+      'template',
+      'create',
+      'retired-disk-flag-test',
+      '--min-free-disk-mb',
+      '0',
+      '--free-disk-space-mb',
+      '1024',
+    ],
+    { encoding: 'utf8', timeout: 10_000 }
+  )
+
+  expect(result.status).toBe(1)
+  expect(result.stderr).toContain("unknown option '--free-disk-space-mb'")
+  expect(result.stderr).not.toMatch(/InvalidArgumentError|\n\s+at /)
+})
+
+describe('template create cli backend integration', () => {
+  let testDir: string
+
+  beforeAll(async () => {
+    if (!apiKey) {
+      throw new Error(
+        'BOXFAB_API_KEY must be set to run template create backend tests'
+      )
+    }
+    testDir = await fs.mkdtemp(path.join(os.tmpdir(), 'e2b-create-test-'))
+    await fs.writeFile(
+      path.join(testDir, 'e2b.Dockerfile'),
+      'FROM ubuntu:latest\n'
+    )
+  })
+
+  afterAll(async () => {
+    if (!testDir) return
+    runCli(['template', 'delete', '--yes', templateName])
+    await fs.rm(testDir, { recursive: true, force: true })
+  })
+
+  test(
+    'template create succeeds with BOXFAB_API_KEY alone',
+    { timeout: 300_000 },
+    () => {
+      const result = runCli([
+        'template',
+        'create',
+        templateName,
+        '--path',
+        testDir,
+      ])
+      const output = String(result.stdout || '') + String(result.stderr || '')
+
+      expect(result.status, output).toBe(0)
+      // Success marker printed by create.ts on a finished build; the failure
+      // path prints "❌ Template build failed." instead.
+      expect(output).toContain('✅ Building sandbox template')
+      expect(output).not.toContain('❌ Template build failed')
+      // Auth never fell through to the "log in first" error box.
+      expect(output).not.toMatch(/You must be logged in/)
+    }
+  )
+})
+
+function runCli(args: string[]): ReturnType<typeof spawnSync> {
+  // A minimal child env (API key only) so this test verifies the API-key auth
+  // path end-to-end.
+  return spawnSync('node', [cliPath, ...args], {
+    env: {
+      PATH: process.env.PATH,
+      HOME: process.env.HOME,
+      BOXFAB_DOMAIN: domain,
+      BOXFAB_API_KEY: apiKey,
+    },
+    encoding: 'utf8',
+    timeout: 300_000,
+  })
+}

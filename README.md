@@ -1,0 +1,76 @@
+# BoxFab CLI
+
+Command-line interface for [BoxFab](https://boxfab.dev): start sandboxes, open a terminal in
+them, run commands, and manage sandbox templates.
+
+> **Alpha.** Commands and output may still change between releases.
+
+## Install
+
+Node.js 22.19 or newer.
+
+```bash
+npm install -g @boxfab/cli
+boxfab --version
+```
+
+## Log in
+
+Get an API key from the [BoxFab dashboard](https://dashboard.boxfab.io) or your BoxFab
+administrator, then:
+
+```bash
+boxfab auth login          # prompts for the key and stores it in ~/.boxfab/config.json
+boxfab auth info           # shows the domain and which key is in use
+boxfab auth logout
+```
+
+In CI or scripts, set `BOXFAB_API_KEY` instead; it takes precedence over the stored key.
+
+## Sandboxes
+
+```bash
+boxfab sandbox create                          # terminal in a new sandbox from the `base` template
+boxfab sandbox create code-interpreter-v1      # Python with Jupyter
+boxfab sandbox create base -d --timeout 3600   # start without a terminal; prints the sandbox ID
+boxfab sandbox list
+boxfab sandbox connect <sandboxID>             # terminal in a running sandbox
+boxfab sandbox exec <sandboxID> -- python3 -c 'print(6*7)'
+boxfab sandbox pause <sandboxID>
+boxfab sandbox resume <sandboxID>
+boxfab sandbox kill <sandboxID>
+```
+
+`boxfab sandbox create` prints a link that opens the sandbox in the dashboard. `sbx` is short for
+`sandbox`, `tpl` for `template`. Run any command with `--help` for all options.
+
+## Templates
+
+```bash
+boxfab template list
+boxfab template init                 # scaffold a template definition (Python or TypeScript)
+boxfab template create <name>        # build a template from a Dockerfile
+boxfab template delete <template>
+```
+
+Python templates use the [BoxFab Python SDK](https://pypi.org/project/boxfab/) (`pip install boxfab`).
+
+## Configuration
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `BOXFAB_API_KEY` | key from `boxfab auth login` | API key |
+| `BOXFAB_DOMAIN` | `boxfab.io` | BoxFab domain (for a self-hosted or staging deployment) |
+| `BOXFAB_DEBUG` | | `true` prints request details |
+| `NO_UPDATE_NOTIFIER` | | set to skip the new-version check |
+
+Only `BOXFAB_*` variables are read.
+
+## Documentation
+
+[boxfab.dev/docs](https://boxfab.dev/docs)
+
+## License
+
+MIT. Parts of this CLI are derived from open-source software; see [LICENSE](LICENSE) and
+[UPSTREAM.md](UPSTREAM.md).

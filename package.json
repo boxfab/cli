@@ -1,0 +1,72 @@
+{
+  "name": "@boxfab/cli",
+  "version": "0.1.0-alpha.1",
+  "description": "BoxFab command-line interface: create, connect to and manage BoxFab sandboxes and templates",
+  "homepage": "https://boxfab.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boxfab/cli.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "boxfab",
+    "sandbox",
+    "cli",
+    "agents",
+    "firecracker"
+  ],
+  "bin": {
+    "boxfab": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "LICENSE-E2B",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "sync-upstream": "python3 scripts/sync_upstream.py",
+    "build": "tsc --noEmit --skipLibCheck && tsdown --minify && node scripts/postbuild.mjs",
+    "typecheck": "tsc --noEmit --skipLibCheck",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "@inquirer/prompts": "^7.10.1",
+    "@npmcli/package-json": "^7.0.5",
+    "async-listen": "^3.1.0",
+    "boxen": "^7.1.1",
+    "chalk": "^5.6.2",
+    "cli-highlight": "^2.1.11",
+    "commander": "^11.1.0",
+    "e2b": "2.61.0",
+    "handlebars": "^4.7.10",
+    "inquirer": "^12.11.1",
+    "simple-update-notifier": "^2.0.0",
+    "simple-wcswidth": "^1.1.2",
+    "statuses": "^2.0.2",
+    "yup": "^1.7.1"
+  },
+  "devDependencies": {
+    "@types/handlebars": "^4.1.0",
+    "@types/inquirer": "^9.0.10",
+    "@types/json2md": "^1.5.4",
+    "@types/node": "^22.20.5",
+    "@types/npmcli__package-json": "^4.0.4",
+    "@types/statuses": "^2.0.6",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "@vitest/coverage-v8": "^4.1.12",
+    "json2md": "^2.0.3",
+    "tsdown": "^0.22.14",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "vitest": "^4.1.12"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
