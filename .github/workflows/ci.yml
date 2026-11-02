@@ -77,7 +77,7 @@ jobs:
         run: node scripts/check_package.mjs pkg/*.tgz
       - name: Install the tarball in a clean prefix and run it
         run: |
-          npm install -g --prefix /tmp/clean --ignore-scripts pkg/*.tgz
+          npm install -g --prefix /tmp/clean --ignore-scripts ./pkg/*.tgz
           export PATH=/tmp/clean/bin:$PATH HOME=$(mktemp -d) NO_UPDATE_NOTIFIER=1
           test "$(boxfab --version)" = "$(node -p "require('./package.json').version")"
           out=$(boxfab --help; boxfab sandbox --help; boxfab template --help; boxfab auth --help)

@@ -80,4 +80,4 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
         run: |
           case "$TAG" in *-*) dist_tag=alpha ;; *) dist_tag=latest ;; esac
-          npm publish pkg/*.tgz --access public --provenance --tag "$dist_tag"
+          npm publish ./pkg/*.tgz --access public --provenance --tag "$dist_tag"

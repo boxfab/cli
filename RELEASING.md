@@ -47,7 +47,7 @@ Publish the tarball that CI built, not a local build:
 gh run download <CI run id on the release commit> -R boxfab/cli -n package -D pkg
 node scripts/check_package.mjs pkg/*.tgz
 npm login                       # an account in the boxfab org, with 2FA
-npm publish pkg/*.tgz --access public --tag alpha
+npm publish ./pkg/*.tgz --access public --tag alpha
 ```
 
 (`--provenance` is only available from CI.)
