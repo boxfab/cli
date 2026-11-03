@@ -5,8 +5,9 @@ name: Publish to npm
 #   verify   tag is v<package.json version>, release commit is on main
 #   ci       the full CI workflow on that exact commit; its `build` job makes the tarball
 #   publish  uploads exactly that tarball with npm trusted publishing (OIDC, no stored token) and
-#            provenance, in the `npm` environment. A version with a pre-release part
-#            (0.1.0-alpha.1) goes to the `alpha` dist-tag, never to `latest`.
+#            provenance, in the `npm` environment. Dist-tags: 1.2.3 -> latest,
+#            1.2.3-alpha.N -> alpha, -beta.N -> beta, -rc.N -> rc (other pre-release names are
+#            rejected by scripts/check_release_tag.mjs in `verify`).
 # npm trusted publisher (package settings on npmjs.com): GitHub Actions, organization boxfab,
 # repository cli, workflow publish.yml, environment npm.
 
@@ -79,5 +80,12 @@ jobs:
         env:
           TAG: ${{ github.event.release.tag_name }}
         run: |
-          case "$TAG" in *-*) dist_tag=alpha ;; *) dist_tag=latest ;; esac
+          case "$TAG" in
+            v*-alpha.*) dist_tag=alpha ;;
+            v*-beta.*) dist_tag=beta ;;
+            v*-rc.*) dist_tag=rc ;;
+            v*-*) echo "unsupported pre-release in $TAG"; exit 1 ;;
+            *) dist_tag=latest ;;
+          esac
+          echo "publishing $TAG with dist-tag $dist_tag"
           npm publish ./pkg/*.tgz --access public --provenance --tag "$dist_tag"

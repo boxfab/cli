@@ -40,7 +40,7 @@ jobs:
         run: |
           v=$(node -p "require('./package.json').version")
           node scripts/check_release_tag.mjs "v$v"
-          for bad in "$v" "v$v-x" "V$v"; do
+          for bad in "$v" "v$v-x" "V$v" "v1.0.0-preview.1" "v1.0.0-alpha" "v1.0.0-rc.1+build"; do
             if node scripts/check_release_tag.mjs "$bad" 2>/dev/null; then echo "accepted bad tag $bad"; exit 1; fi
           done
 
@@ -56,7 +56,11 @@ jobs:
         with:
           python-version: "3.12"
       - run: python scripts/sync_upstream.py
-      - run: git status --porcelain && git diff --exit-code
+      - name: No changed or untracked files after the sync
+        run: |
+          git status --porcelain
+          git diff --stat
+          test -z "$(git status --porcelain)"
 
   build:
     runs-on: ubuntu-latest

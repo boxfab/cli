@@ -12,17 +12,21 @@ publishing (OIDC): there is no npm token in the repository or its secrets.
 | full CI on the exact tagged commit; the tarball is built and checked there once | `publish.yml` job `ci` (calls `ci.yml`) |
 | exact file list, name/version/license/bin, no local paths, API keys, private keys or (optional `DIST_EXTRA_DENY`) site-specific names; clean install runs; help text names BoxFab only; inherited `E2B_*` variables are ignored | `ci.yml` job `build` + `scripts/check_package.mjs` |
 | that exact tarball is uploaded; only this job has `id-token: write`; provenance is attached | `publish.yml` job `publish` |
-| a pre-release version (`0.1.0-alpha.1`) goes to the `alpha` dist-tag, never `latest` | `publish.yml` job `publish` |
+| dist-tag from the version: `1.2.3` → `latest`, `-alpha.N` → `alpha`, `-beta.N` → `beta`, `-rc.N` → `rc`; any other pre-release name is rejected | `scripts/check_release_tag.mjs` (job `verify`) and `publish.yml` job `publish` |
 | one publication at a time, never cancelled | `concurrency: npm-publish` |
 | actions pinned to commit SHAs | workflow files |
 
 ## One-time setup (owner)
 
 1. npmjs.com, organization `boxfab`: 2FA required for publishing.
-2. Repository: environment `npm` (Settings → Environments); while the repository is private on
-   GitHub Team, a required reviewer cannot be set, so publishing the GitHub Release is the human
-   approval. Add rulesets like `boxfab/python-sdk` (`main` via pull requests with CI; `v*` tags
-   created by admins only and immutable).
+2. Repository (public; provenance requires a public source repository):
+   - environment `npm` (Settings → Environments) with a required reviewer and deployment branches
+     limited to `v*` tags. While there is a single maintainer, add yourself and leave
+     *Prevent self-review* off, so every publish still waits for an explicit approval; with a
+     second maintainer, add them and turn *Prevent self-review* on;
+   - rulesets like `boxfab/python-sdk`: `main` only via squash-merged pull requests with the CI
+     jobs as required checks (required approvals: 0 while single-maintainer), no force pushes or
+     deletion; `v*` tags created by admins only and immutable.
 3. npm trusted publisher for `@boxfab/cli` (package → Settings → Trusted publishing → GitHub
    Actions): organization `boxfab`, repository `cli`, workflow `publish.yml`, environment `npm`.
    If npmjs.com only offers this for a package that already exists, do the first release by hand
