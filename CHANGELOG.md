@@ -2,7 +2,12 @@
 
 Upstream changes are in `CHANGELOG-E2B.md`.
 
-## 0.1.0-alpha.1 (unreleased)
+## 0.1.0-alpha.2 (2026-11-03)
+
+- First release published by the GitHub Actions workflow (npm trusted publishing, with
+  provenance). No code changes from 0.1.0-alpha.1.
+
+## 0.1.0-alpha.1 (2026-11-03)
 
 - First alpha, generated from `@e2b/cli` 2.23.0 (commit `a91e33a3014a`), see `UPSTREAM.md`.
 - Package `@boxfab/cli`, command `boxfab`; default domain `boxfab.io`.

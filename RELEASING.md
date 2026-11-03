@@ -45,13 +45,19 @@ publishing (OIDC): there is no npm token in the repository or its secrets.
 
 ### First release by hand (only if trusted publishing cannot be set up before the package exists)
 
+0.1.0-alpha.1 was published this way (no provenance); 0.1.0-alpha.2 was the first release through
+the workflow. A new trusted publisher shows *Pending validation* on npmjs.com until the workflow
+publishes once, which must happen within npm's validation window (two days).
+
 Publish the tarball that CI built, not a local build:
 
 ```bash
 gh run download <CI run id on the release commit> -R boxfab/cli -n package -D pkg
 node scripts/check_package.mjs pkg/*.tgz
 npm login                       # an account in the boxfab org, with 2FA
-npm publish ./pkg/*.tgz --access public --tag alpha
+npm publish ./pkg/*.tgz --access public --tag alpha --provenance=false
 ```
 
-(`--provenance` is only available from CI.)
+`package.json` asks for provenance, which only CI can produce, hence `--provenance=false` for
+this one manual release. npm also sets `latest` on a package's first publish; later pre-releases
+move only their own dist-tag.
