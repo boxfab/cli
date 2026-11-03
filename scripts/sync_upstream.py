@@ -175,7 +175,7 @@ def main():
     ap.add_argument("--src", type=Path, help="existing E2B monorepo checkout at the pinned commit")
     a = ap.parse_args()
 
-    with tempfile.TemporaryDirectory() as tmp:
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
         src = a.src
         if src is None:
             src = Path(tmp) / "E2B"
