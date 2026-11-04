@@ -1,7 +1,7 @@
 import { input, select } from '@inquirer/prompts'
 import PackageJson from '@npmcli/package-json'
 import * as commander from 'commander'
-import { Template } from 'e2b'
+import { Template } from 'boxfab'
 import * as fs from 'fs'
 import * as path from 'path'
 import { pathOption } from 'src/options'
@@ -266,7 +266,7 @@ export const initCommand = new commander.Command('init')
         switch (language) {
           case Language.TypeScript:
             console.log(
-              `   ${asPrimary('npm install e2b')} (install e2b dependency)`
+              `   ${asPrimary('npm install boxfab')} (install boxfab dependency)`
             )
             console.log(
               `   ${asPrimary('npm run boxfab:build:dev')} (for development)`
@@ -278,7 +278,7 @@ export const initCommand = new commander.Command('init')
           case Language.PythonAsync:
           case Language.PythonSync:
             console.log(
-              `   ${asPrimary('pip install e2b')} (install e2b dependency)`
+              `   ${asPrimary('pip install boxfab')} (install boxfab dependency)`
             )
             console.log(
               `   ${asPrimary('make boxfab:build:dev')} (for development)`

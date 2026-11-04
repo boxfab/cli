@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto'
 import { describe, expect, test } from 'vitest'
-import { Sandbox } from 'e2b'
+import { Sandbox } from 'boxfab'
 import { getUserConfig } from 'src/user'
 import {
   type CliRunResult,

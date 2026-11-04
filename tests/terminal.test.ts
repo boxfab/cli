@@ -1,4 +1,4 @@
-import type { Sandbox } from 'e2b'
+import type { Sandbox } from 'boxfab'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { spawnConnectedTerminal } from '../src/terminal'

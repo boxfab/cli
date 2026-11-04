@@ -254,7 +254,7 @@ build/%:
       )
 
       // Verify basic structure
-      expect(templateContent).toContain("import { Template } from 'e2b'")
+      expect(templateContent).toContain("import { Template } from 'boxfab'")
       expect(templateContent).toContain('export const template = Template()')
       expect(templateContent).toContain('fromImage')
       expect(templateContent).toContain('e2bdev/base')

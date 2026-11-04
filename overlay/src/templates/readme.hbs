@@ -10,24 +10,16 @@ Before you begin, make sure you have:
 
 ## Configuration
 
-{{#if isTypeScript}}
-Set the API key and the BoxFab domain in a `.env` file in your project root or in the environment:
-```
-E2B_DOMAIN=boxfab.io
-E2B_API_KEY=your_boxfab_api_key
-```
-{{else if isPython}}
 Set the API key in a `.env` file in your project root or in the environment:
 ```
 BOXFAB_API_KEY=your_api_key_here
 ```
-{{/if}}
 
 ## Installing Dependencies
 
 ```bash
 {{#if isTypeScript}}
-npm install e2b
+npm install boxfab
 {{else if isPython}}
 pip install boxfab
 {{/if}}
@@ -57,9 +49,9 @@ Once your template is built, you can use it in a BoxFab sandbox:
 
 {{#if isTypeScript}}
 ```typescript
-import { Sandbox } from 'e2b'
+import { Sandbox } from 'boxfab'
 
-// Create a new sandbox instance (E2B_DOMAIN=boxfab.io must be set)
+// Create a new sandbox instance
 const sandbox = await Sandbox.create('{{name}}')
 
 // Your sandbox is ready to use!

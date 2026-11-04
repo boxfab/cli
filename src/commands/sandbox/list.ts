@@ -1,5 +1,5 @@
 import * as commander from 'commander'
-import { components, Sandbox, SandboxInfo, SandboxListOrder } from 'e2b'
+import { components, Sandbox, SandboxInfo, SandboxListOrder } from 'boxfab'
 
 import { ensureAPIKey } from 'src/api'
 import { renderTable } from 'src/utils/table'

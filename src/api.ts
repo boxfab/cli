@@ -1,5 +1,5 @@
 import * as boxen from 'boxen'
-import * as e2b from 'e2b'
+import * as e2b from 'boxfab'
 
 import * as packageJSON from '../package.json'
 import { getUserConfig, UserConfig } from './user'
@@ -12,8 +12,8 @@ e2b.ConnectionConfig.setIntegration(`boxfab-cli/${packageJSON.version}`)
 export type Teams =
   e2b.paths['/teams']['get']['responses'][200]['content']['application/json']
 
-export let apiKey = process.env.E2B_API_KEY
-export const projectId = process.env.E2B_PROJECT_ID || process.env.E2B_TEAM_ID
+export let apiKey = process.env.BOXFAB_API_KEY
+export const projectId = process.env.BOXFAB_PROJECT_ID || process.env.BOXFAB_TEAM_ID
 
 const authErrorBox = () => {
   const body = `You must be logged in to use this command. Run ${asBold(
@@ -61,14 +61,14 @@ export function ensureUserConfig(): UserConfig {
 /**
  * Resolve project ID with proper precedence:
  * 1. CLI --project flag (or the deprecated --team flag)
- * 2. E2B_PROJECT_ID env var (or the deprecated E2B_TEAM_ID)
- * 3. ~/.boxfab/config.json projectId (only if E2B_API_KEY env var is NOT set,
+ * 2. BOXFAB_PROJECT_ID env var (or the deprecated BOXFAB_TEAM_ID)
+ * 3. ~/.boxfab/config.json projectId (only if BOXFAB_API_KEY env var is NOT set,
  *    to avoid mismatch between env var API key and config file project ID)
  */
 export function resolveProjectId(cliProjectId?: string): string | undefined {
   if (cliProjectId) return cliProjectId
   if (projectId) return projectId
-  if (!process.env.E2B_API_KEY) {
+  if (!process.env.BOXFAB_API_KEY) {
     const config = getUserConfig()
     return config?.projectId
   }
@@ -78,7 +78,7 @@ export function resolveProjectId(cliProjectId?: string): string | undefined {
 const userConfig = getUserConfig()
 
 export const connectionConfig = new e2b.ConnectionConfig({
-  apiKey: process.env.E2B_API_KEY || userConfig?.projectApiKey,
+  apiKey: process.env.BOXFAB_API_KEY || userConfig?.projectApiKey,
 })
 
 // `boxfab auth login` runs before any API key exists, and this client is built at

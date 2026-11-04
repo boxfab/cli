@@ -1,4 +1,4 @@
-import * as sdk from 'e2b'
+import * as sdk from 'boxfab'
 
 export function sortTemplatesAliases<
   E extends sdk.components['schemas']['Template']['aliases'],

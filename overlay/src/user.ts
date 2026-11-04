@@ -21,10 +21,10 @@ type UnknownRecord = Record<string, unknown>
 
 export const USER_CONFIG_PATH = path.join(os.homedir(), '.boxfab', 'config.json')
 
-export const DOCS_BASE = process.env.E2B_DOCS_BASE || 'https://boxfab.dev/docs'
+export const DOCS_BASE = process.env.BOXFAB_DOCS_BASE || 'https://boxfab.dev/docs'
 
 export const DASHBOARD_BASE =
-  process.env.E2B_DASHBOARD_BASE || 'https://dashboard.boxfab.io'
+  process.env.BOXFAB_DASHBOARD_BASE || 'https://dashboard.boxfab.io'
 
 // The BoxFab dashboard serves a sandbox at /sandboxes/<id> (no /inspect/sandbox route).
 export const SANDBOX_INSPECT_URL = (sandboxId: string) =>

@@ -1,5 +1,5 @@
 import * as commander from 'commander'
-import { NotFoundError, Sandbox } from 'e2b'
+import { NotFoundError, Sandbox } from 'boxfab'
 
 import { ensureAPIKey } from 'src/api'
 import { asBold } from 'src/utils/format'

@@ -6,8 +6,8 @@ import { asBold, asFormattedError } from 'src/utils/format'
 export const infoCommand = new commander.Command('info')
   .description('show which API key and domain the CLI uses')
   .action(async () => {
-    const domain = process.env.E2B_DOMAIN
-    const fromEnv = process.env.E2B_API_KEY
+    const domain = process.env.BOXFAB_DOMAIN
+    const fromEnv = process.env.BOXFAB_API_KEY
     let stored
     try {
       stored = getUserConfig()

@@ -14,7 +14,7 @@ const mocks = vi.hoisted(() => {
   }
 })
 
-vi.mock('e2b', () => ({
+vi.mock('boxfab', () => ({
   Sandbox: {
     create: mocks.create,
   },

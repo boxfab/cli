@@ -1,5 +1,5 @@
 import * as commander from 'commander'
-import * as e2b from 'e2b'
+import * as boxfab from 'boxfab'
 import { password } from '@inquirer/prompts'
 
 import { DASHBOARD_BASE, getUserConfig, USER_CONFIG_PATH, writeUserConfig } from 'src/user'
@@ -7,7 +7,7 @@ import { asBold, asFormattedError } from 'src/utils/format'
 
 /** Checks the key against the API; returns null if it works, otherwise the reason. */
 export async function checkApiKey(apiKey: string): Promise<string | null> {
-  const config = new e2b.ConnectionConfig({ apiKey })
+  const config = new boxfab.ConnectionConfig({ apiKey })
   try {
     const res = await fetch(`${config.apiUrl}/v2/sandboxes?limit=1`, {
       headers: { 'X-API-Key': apiKey },

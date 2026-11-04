@@ -22,7 +22,7 @@ const mocks = vi.hoisted(() => {
   }
 })
 
-vi.mock('e2b', () => {
+vi.mock('boxfab', () => {
   class CommandExitError extends Error {
     exitCode: number
     constructor(exitCode: number) {

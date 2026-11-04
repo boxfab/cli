@@ -1,6 +1,6 @@
 import { wait } from '../../utils/wait'
 import { asBold } from '../../utils/format'
-import { Sandbox } from 'e2b'
+import { Sandbox } from 'boxfab'
 import { ensureAPIKey } from 'src/api'
 
 export function formatEnum(e: { [key: string]: string }) {

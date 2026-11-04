@@ -11,10 +11,12 @@ around the sync fails loudly instead of silently shipping an E2B default.
 What happens (see UPSTREAM.md for the reasoning):
   1. packages/cli at the pinned commit is copied; LICENSE -> LICENSE-E2B, CHANGELOG -> CHANGELOG-E2B.md
   2. the browser (OAuth) sign-in and project switching are removed; overlay/ adds API-key auth,
-     the BoxFab user config (~/.boxfab) and the environment mapping (src/boxfab-env.ts)
+     the BoxFab user config (~/.boxfab) and the BOXFAB_DOMAIN default (src/boxfab-env.ts)
   3. user-facing names, links and generated code are rewritten to BoxFab
-  4. monorepo-only paths (workspace SDK source, pnpm) are replaced by the published packages
-The bundled `e2b` JS SDK, the wire protocol and identifiers such as E2BRequestError are unchanged.
+  4. the `e2b` JS SDK is replaced by the `boxfab` JS SDK (the same SDK release, rebranded, reading
+     BOXFAB_* variables), and the CLI's own E2B_* variables become BOXFAB_*
+  5. monorepo-only paths (workspace SDK source, pnpm) are replaced by the published packages
+The wire protocol and identifiers such as TemplateClass are unchanged.
 """
 
 import argparse
@@ -152,18 +154,36 @@ REGEX = [
     ("src/**/*.ts", r"\(https://e2b\.dev/dashboard[^)\s'`]*\)", f"({DASHBOARD})", 1),
     # Generated Python code uses the BoxFab Python SDK.
     ("src/templates/python-*.hbs", r"\bfrom e2b import\b", "from boxfab import", 3),
+    # The CLI and its generated TypeScript code use the BoxFab JS SDK (`boxfab` on npm).
+    ("src/**/*.ts", r"from 'e2b'", "from 'boxfab'", 28),
+    # The Python example `template create` prints on success.
+    ("src/**/*.ts", r"`from e2b import\b", "`from boxfab import", 1),
+    ("src/templates/typescript-*.hbs", r"from 'e2b'", "from 'boxfab'", 2),
+    ("src/commands/template/*.ts", r"\b(npm|pip) install e2b\b", r"\1 install boxfab", 4),
+    ("src/commands/template/*.ts", r"\(install e2b dependency\)", "(install boxfab dependency)", 4),
+    # The CLI's own environment variables (the SDK reads BOXFAB_* itself).
+    ("src/**/*.ts", r"\bE2B_(API_KEY|PROJECT_ID|TEAM_ID|DOCS_BASE|DASHBOARD_BASE|DOMAIN|ACCESS_TOKEN|API_URL|SANDBOX_URL|DEBUG)\b", r"BOXFAB_\1", 8),
     # Tests: the same rewrites, and the CLI reads only BOXFAB_* variables.
     ("tests/**/*.ts", r"\be2b (auth|sandbox|template)\b", r"boxfab \1", None),
     ("tests/**/*.py", r"\bfrom e2b import\b", "from boxfab import", None),
     ("tests/**/*.ts", r"\be2b(:build:(?:dev|prod))", r"boxfab\1", None),
     ("tests/**/*.ts", r"(['`])from e2b import\b", r"\1from boxfab import", None),
     ("tests/**/*.ts", r"\be2b-cli/", "boxfab-cli/", None),
+    ("tests/**/*.ts", r"\be2b-js-sdk\\?/", lambda m: m.group(0).replace("e2b", "boxfab"), None),
     ("tests/**/*.ts", r"'e2b\.app'", "'boxfab.io'", 4),
-    ("tests/**/*.ts", r"\bE2B_(API_KEY|DOMAIN|DEBUG|ACCESS_TOKEN|API_URL|SANDBOX_URL)\b", r"BOXFAB_\1", None),
+    ("tests/**/*.ts", r"\bE2B_(API_KEY|DOMAIN|DEBUG|ACCESS_TOKEN|API_URL|SANDBOX_URL|PROJECT_ID|TEAM_ID)\b", r"BOXFAB_\1", None),
+    ("tests/**/*.ts", r"from 'e2b'", "from 'boxfab'", None),
+    # Module mocks and dynamic imports must name the module the CLI now imports.
+    ("tests/**/*.ts", r"\b(vi\.mock|import|vi\.importActual)\('e2b'", r"\1('boxfab'", 7),
+    ("tests/**/*.ts", r"(npm|pip) install e2b\b", r"\1 install boxfab", None),
+    ("tests/**/*.ts", r"\(install e2b dependency\)", "(install boxfab dependency)", None),
 ]
 
 # What may remain in src/ after the rewrites, anything else matching FORBIDDEN fails the sync.
-FORBIDDEN = re.compile(r"e2b\.dev|e2b\.app|\.e2b['/]|E2B_API_KEY'|'e2b auth|`e2b |\be2b sandbox\b")
+FORBIDDEN = re.compile(
+    r"e2b\.dev|e2b\.app|\.e2b['/]|E2B_API_KEY'|'e2b auth|`e2b |\be2b sandbox\b"
+    r"|from 'e2b'|\bfrom e2b import\b|\bprocess\.env\.E2B_|(npm|pip) install e2b\b"
+)
 
 
 def sh(*args, cwd=None):
