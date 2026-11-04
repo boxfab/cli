@@ -2,8 +2,8 @@ import * as commander from 'commander'
 
 import { ensureAPIKey } from 'src/api'
 import { asBold } from 'src/utils/format'
-import * as e2b from 'e2b'
-import { Sandbox, components } from 'e2b'
+import * as e2b from 'boxfab'
+import { Sandbox, components } from 'boxfab'
 import { parseMetadata } from './utils'
 
 async function killSandbox(sandboxID: string, apiKey: string) {

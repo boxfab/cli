@@ -2,7 +2,7 @@
  * Execute a command in a running sandbox.
  */
 
-import { Sandbox, CommandExitError, NotFoundError } from 'e2b'
+import { Sandbox, CommandExitError, NotFoundError } from 'boxfab'
 import * as commander from 'commander'
 
 import { ensureAPIKey } from '../../api'

@@ -1,4 +1,4 @@
-import { Template, TemplateClass } from 'e2b'
+import { Template, TemplateClass } from 'boxfab'
 import * as fs from 'fs'
 import HandlebarsLib from 'handlebars'
 import * as path from 'path'

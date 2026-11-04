@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, test } from 'vitest'
-import { ApiClient, ConnectionConfig } from 'e2b'
+import { ApiClient, ConnectionConfig } from 'boxfab'
 import { getUserConfig } from 'src/user'
 import { isDebug, runCli } from '../../setup'
 

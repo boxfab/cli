@@ -1,5 +1,5 @@
 import * as commander from 'commander'
-import * as e2b from 'e2b'
+import * as e2b from 'boxfab'
 
 import { listAliases } from '../../utils/format'
 import { renderTable } from 'src/utils/table'

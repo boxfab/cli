@@ -1,5 +1,5 @@
 import * as commander from 'commander'
-import * as e2b from 'e2b'
+import * as e2b from 'boxfab'
 import * as util from 'util'
 import * as chalk from 'chalk'
 

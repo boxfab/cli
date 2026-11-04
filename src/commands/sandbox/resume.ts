@@ -2,8 +2,8 @@ import * as commander from 'commander'
 
 import { ensureAPIKey } from 'src/api'
 import { asBold } from 'src/utils/format'
-import * as e2b from 'e2b'
-import { NotFoundError } from 'e2b'
+import * as e2b from 'boxfab'
+import { NotFoundError } from 'boxfab'
 
 async function resumeSandbox(sandboxID: string, apiKey: string) {
   try {

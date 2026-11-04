@@ -53,7 +53,9 @@ boxfab template create <name>        # build a template from a Dockerfile
 boxfab template delete <template>
 ```
 
-Python templates use the [BoxFab Python SDK](https://pypi.org/project/boxfab/) (`pip install boxfab`).
+Generated templates use the BoxFab SDKs: Python (`pip install boxfab`,
+[PyPI](https://pypi.org/project/boxfab/)) and TypeScript (`npm install boxfab`,
+[npm](https://www.npmjs.com/package/boxfab)). Both read `BOXFAB_API_KEY` and default to `boxfab.io`.
 
 ## Configuration
 

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { SandboxInfo } from 'e2b'
+import { SandboxInfo } from 'boxfab'
 
 import {
   buildTableRows,

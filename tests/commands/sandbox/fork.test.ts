@@ -10,7 +10,7 @@ const mocks = vi.hoisted(() => {
   }
 })
 
-vi.mock('e2b', () => ({
+vi.mock('boxfab', () => ({
   Sandbox: {
     fork: mocks.fork,
   },

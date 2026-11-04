@@ -1,6 +1,6 @@
 import { select } from '@inquirer/prompts'
 import * as commander from 'commander'
-import { Template, TemplateBuilder, TemplateClass } from 'e2b'
+import { Template, TemplateBuilder, TemplateClass } from 'boxfab'
 import * as fs from 'fs'
 import * as path from 'path'
 import { BoxFabConfig, getConfigPath, loadConfig } from '../../config'
@@ -271,7 +271,7 @@ export const migrateCommand = new commander.Command('migrate')
         console.log('\n🔨 To get started with your template:')
         if (language === Language.TypeScript) {
           console.log(
-            `   ${asPrimary('npm install e2b')} (install e2b dependency)`
+            `   ${asPrimary('npm install boxfab')} (install boxfab dependency)`
           )
           console.log(
             `   ${asPrimary('npx tsx build.dev.ts')} (run development build)`
@@ -281,7 +281,7 @@ export const migrateCommand = new commander.Command('migrate')
           )
         } else {
           console.log(
-            `   ${asPrimary('pip install e2b')} (install e2b dependency)`
+            `   ${asPrimary('pip install boxfab')} (install boxfab dependency)`
           )
           console.log(
             `   ${asPrimary('python build_dev.py')} (run development build)`

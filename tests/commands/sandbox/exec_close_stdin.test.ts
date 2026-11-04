@@ -26,7 +26,7 @@ const mocks = vi.hoisted(() => {
   }
 })
 
-vi.mock('e2b', () => {
+vi.mock('boxfab', () => {
   class CommandExitError extends Error {
     exitCode: number
     constructor(exitCode: number) {
@@ -132,7 +132,7 @@ describe('sandbox exec closeStdin handling', () => {
   })
 
   test('keeps NotFoundError from closeStdin non-fatal', async () => {
-    const { NotFoundError } = await import('e2b')
+    const { NotFoundError } = await import('boxfab')
     mocks.closeStdin.mockRejectedValue(new NotFoundError('already exited'))
 
     const exitSpy = vi
@@ -152,7 +152,7 @@ describe('sandbox exec closeStdin handling', () => {
   })
 
   test('stops stdin streaming after NotFoundError from sendStdin', async () => {
-    const { NotFoundError } = await import('e2b')
+    const { NotFoundError } = await import('boxfab')
     mocks.sendStdin.mockRejectedValueOnce(new NotFoundError('already exited'))
     mocks.streamStdinChunks.mockImplementation(
       async (

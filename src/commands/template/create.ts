@@ -1,6 +1,6 @@
 import * as boxen from 'boxen'
 import * as commander from 'commander'
-import { defaultBuildLogger, Template, TemplateClass } from 'e2b'
+import { defaultBuildLogger, Template, TemplateClass } from 'boxfab'
 import { connectionConfig, ensureAPIKey } from 'src/api'
 import {
   defaultDockerfileName,
@@ -160,7 +160,7 @@ export const createCommand = new commander.Command('create')
         }
 
         // Display success message with examples
-        const pythonExample = asPython(`from e2b import Sandbox, AsyncSandbox
+        const pythonExample = asPython(`from boxfab import Sandbox, AsyncSandbox
 
 # Create sync sandbox
 sandbox = Sandbox.create("${templateName}")
@@ -168,7 +168,7 @@ sandbox = Sandbox.create("${templateName}")
 # Create async sandbox
 sandbox = await AsyncSandbox.create("${templateName}")`)
 
-        const typescriptExample = asTypescript(`import { Sandbox } from 'e2b'
+        const typescriptExample = asTypescript(`import { Sandbox } from 'boxfab'
 
 // Create sandbox
 const sandbox = await Sandbox.create('${templateName}')`)

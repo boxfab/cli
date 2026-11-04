@@ -1,4 +1,4 @@
-import * as e2b from 'e2b'
+import * as e2b from 'boxfab'
 import * as commander from 'commander'
 
 import { spawnConnectedTerminal, TerminalOpts } from 'src/terminal'

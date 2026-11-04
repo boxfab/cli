@@ -2,6 +2,20 @@
 
 Upstream changes are in `CHANGELOG-E2B.md`.
 
+## 0.1.0-alpha.3 (2026-11-04)
+
+- The CLI now bundles the BoxFab JS SDK (`boxfab` 0.1.0-alpha.2 on npm, built from the same
+  `e2b` 2.61.0 release) instead of `e2b`. The SDK reads `BOXFAB_*` variables itself, so the
+  `BOXFAB_*` -> `E2B_*` mapping is gone; the CLI's own variables (`BOXFAB_PROJECT_ID`,
+  `BOXFAB_DOCS_BASE`, `BOXFAB_DASHBOARD_BASE`) are read directly. Inherited `E2B_*` variables are
+  still ignored. User agent: `boxfab-js-sdk/... boxfab-cli/...`.
+- `template init` for TypeScript generates `import ... from 'boxfab'` and a README with
+  `npm install boxfab` and only `BOXFAB_API_KEY` (no `E2B_DOMAIN` needed); `template init` /
+  `template migrate` hints say `npm install boxfab` / `pip install boxfab`.
+- `template create` prints its Python example with `from boxfab import` (was `from e2b import`).
+- The build checks the bundle instead of patching SDK messages: it fails if the bundle reads an
+  `E2B_*` configuration variable, links to e2b.dev or e2b.app, or lacks the boxfab SDK.
+
 ## 0.1.0-alpha.2 (2026-11-03)
 
 - First release published by the GitHub Actions workflow (npm trusted publishing, with

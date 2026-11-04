@@ -46,6 +46,6 @@ async function captureUserAgent(args: string[]): Promise<string | undefined> {
 test('CLI requests carry SDK and CLI attribution in the User-Agent', async () => {
   const userAgent = await captureUserAgent(['sandbox', 'list'])
 
-  expect(userAgent).toMatch(/^e2b-js-sdk\/\d/)
+  expect(userAgent).toMatch(/^boxfab-js-sdk\/\d/)
   expect(userAgent).toContain(`boxfab-cli/${packageJSON.version}`)
 })

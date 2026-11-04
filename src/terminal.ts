@@ -1,4 +1,4 @@
-import * as e2b from 'e2b'
+import * as e2b from 'boxfab'
 
 function getStdoutSize() {
   return {
