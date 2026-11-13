@@ -9,7 +9,7 @@ overlay/ instead and re-run. Every rule asserts how often it matched, so when up
 around the sync fails loudly instead of silently shipping an E2B default.
 
 What happens (see UPSTREAM.md for the reasoning):
-  1. packages/cli at the pinned commit is copied; LICENSE -> LICENSE-E2B, CHANGELOG -> CHANGELOG-E2B.md
+  1. packages/cli at the pinned commit is copied; CHANGELOG -> CHANGELOG-E2B.md; LICENSE is checked
   2. the browser (OAuth) sign-in and project switching are removed; overlay/ adds API-key auth,
      the BoxFab user config (~/.boxfab) and the BOXFAB_DOMAIN default (src/boxfab-env.ts)
   3. user-facing names, links and generated code are rewritten to BoxFab
@@ -37,7 +37,7 @@ DOCS = "https://boxfab.dev/docs"
 DASHBOARD = "https://dashboard.boxfab.io"
 
 COPY = ["src", "tests", "tsconfig.json", "tsdown.config.ts", "vitest.config.ts"]
-RENAME = {"LICENSE": "LICENSE-E2B", "CHANGELOG.md": "CHANGELOG-E2B.md"}
+RENAME = {"CHANGELOG.md": "CHANGELOG-E2B.md"}
 # Upstream files replaced by nothing: OAuth sign-in, token refresh, project switching, and the
 # tests of the OAuth config format.
 DELETE = [
@@ -215,6 +215,15 @@ def main():
             (shutil.copytree if (cli / name).is_dir() else shutil.copy2)(cli / name, dst)
         for old, new in RENAME.items():
             shutil.copy2(cli / old, ROOT / new)
+        # LICENSE is MIT with upstream's copyright line and ours; it must keep upstream's
+        # copyright line and permission text word for word.
+        up_lic = (cli / "LICENSE").read_text()
+        ours = (ROOT / "LICENSE").read_text()
+        up_copyright = [line for line in up_lic.splitlines() if line.startswith("Copyright")]
+        if not up_copyright or any(line not in ours.splitlines() for line in up_copyright):
+            sys.exit(f"LICENSE lacks upstream's copyright line(s): {up_copyright}")
+        if not ours.endswith(up_lic[up_lic.index("Permission is hereby granted"):]):
+            sys.exit("LICENSE permission text differs from upstream's")
 
     for rel in DELETE:
         p = ROOT / rel

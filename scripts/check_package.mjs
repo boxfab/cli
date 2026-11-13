@@ -11,7 +11,6 @@ const problems = []
 const files = execFileSync('tar', ['-tzf', tgz], { encoding: 'utf8' }).trim().split('\n').sort()
 const expected = [
   'package/LICENSE',
-  'package/LICENSE-E2B',
   'package/README.md',
   'package/dist/index.js',
   'package/dist/index.js.map',
