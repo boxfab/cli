@@ -2,6 +2,13 @@
 
 Upstream changes are in `CHANGELOG-E2B.md`.
 
+## Unreleased
+
+- One `LICENSE` file: the MIT text with the upstream copyright line (FOUNDRYLABS, INC.) and
+  ContextFab's; `LICENSE-E2B` is merged into it.
+- README: "Under the hood" section (Firecracker, the E2B open-source infrastructure and CLI, and how
+  to use the E2B CLI and SDKs with BoxFab); the License section names the upstream CLI.
+
 ## 0.1.0-alpha.3 (2026-11-04)
 
 - The CLI now bundles the BoxFab JS SDK (`boxfab` 0.1.0-alpha.2 on npm, built from the same

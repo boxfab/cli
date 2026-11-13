@@ -72,7 +72,27 @@ Only `BOXFAB_*` variables are read.
 
 [boxfab.dev/docs](https://boxfab.dev/docs)
 
+## Under the hood
+
+BoxFab sandboxes are [Firecracker](https://firecracker-microvm.github.io/) microVMs, run on the
+open-source [E2B](https://github.com/e2b-dev/infra) sandbox infrastructure. This CLI is derived from
+the open-source E2B CLI; [UPSTREAM.md](UPSTREAM.md) lists every change.
+
+**Using the E2B SDKs and CLI.** BoxFab serves the same API, so the E2B SDKs and CLI work with it
+as well. Set both variables, the domain first:
+
+```bash
+export E2B_DOMAIN=boxfab.io
+export E2B_API_KEY="<your BoxFab API key>"
+```
+
+Without `E2B_DOMAIN`, the E2B tools send requests, including the key, to E2B's own service. The E2B
+CLI's `e2b auth login` signs in to E2B's service; with BoxFab, use `E2B_API_KEY` instead.
+
+Tested against BoxFab with `e2b` 2.62.0 (Python), `e2b` 2.61.0 (JavaScript) and `@e2b/cli` 2.23.0.
+
 ## License
 
-MIT. Parts of this CLI are derived from open-source software; see [LICENSE](LICENSE) and
-[UPSTREAM.md](UPSTREAM.md).
+MIT, as the E2B CLI it is derived from; see [LICENSE](LICENSE).
+
+BoxFab is a product of ContextFab, Inc.
