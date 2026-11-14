@@ -3,3 +3,7 @@ dist/
 coverage/
 *.tgz
 .env
+
+# Notes for AI agents and reviewers, kept locally
+AGENTS.md
+CLAUDE.md
