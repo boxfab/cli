@@ -13,6 +13,8 @@ publishing (OIDC): there is no npm token in the repository or its secrets.
 | exact file list, name/version/license/bin, no local paths, API keys, private keys or (optional `DIST_EXTRA_DENY`) site-specific names; clean install runs; help text names BoxFab only; inherited `E2B_*` variables are ignored | `ci.yml` job `build` + `scripts/check_package.mjs` |
 | that exact tarball is uploaded; only this job has `id-token: write`; provenance is attached | `publish.yml` job `publish` |
 | dist-tag from the version: `1.2.3` → `latest`, `-alpha.N` → `alpha`, `-beta.N` → `beta`, `-rc.N` → `rc`; any other pre-release name is rejected | `scripts/check_release_tag.mjs` (job `verify`) and `publish.yml` job `publish` |
+| a required reviewer approves each publication; admins cannot bypass it | environment `npm` |
+| a published release's tag and assets cannot change | repository setting: immutable releases |
 | one publication at a time, never cancelled | `concurrency: npm-publish` |
 | actions pinned to commit SHAs | workflow files |
 
@@ -40,7 +42,8 @@ publishing (OIDC): there is no npm token in the repository or its secrets.
    --package-lock-only`), add the `CHANGELOG.md` entry; merge after CI passes.
 2. GitHub → Releases → *Draft a new release*: tag `v<version>` (*Create new tag on publish*),
    target `main`, tick *Set as a pre-release* for alpha/beta versions, then **Publish release**.
-3. Watch the `Publish to npm` run; check https://www.npmjs.com/package/@boxfab/cli and
+3. Watch the `Publish to npm` run: `verify` → `ci / …` → `publish`; when `publish` waits,
+   *Review deployments* → `npm` → *Approve and deploy*. Then check https://www.npmjs.com/package/@boxfab/cli and
    `npm view @boxfab/cli dist-tags`.
 
 ### First release by hand (only if trusted publishing cannot be set up before the package exists)
