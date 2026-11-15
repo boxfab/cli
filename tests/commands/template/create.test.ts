@@ -5,7 +5,7 @@ import * as path from 'node:path'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 
 const apiKey = process.env.BOXFAB_API_KEY
-const domain = process.env.BOXFAB_DOMAIN || 'boxfab.io'
+const domain = process.env.BOXFAB_DOMAIN || 'us-west.boxfab.dev'
 
 const cliPath = path.join(process.cwd(), 'dist', 'index.js')
 const templateName = `cli-create-api-key-test-${Date.now()}`

@@ -23,7 +23,7 @@ const authErrorBox = () => {
 If you are seeing this message in CI/CD you may need to set the ${asBold(
     'BOXFAB_API_KEY'
   )} environment variable.
-Get one from your BoxFab administrator or ${asPrimary('https://dashboard.boxfab.io')}.`
+Get one from your BoxFab administrator or ${asPrimary('https://dashboard.us-west.boxfab.io')}.`
   return boxen.default(body, {
     width: 70,
     float: 'center',

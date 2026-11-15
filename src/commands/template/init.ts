@@ -293,7 +293,7 @@ export const initCommand = new commander.Command('init')
 
         console.log(
           `\nLearn more about Sandbox Templates: ${asPrimary(
-            'https://boxfab.dev/docs'
+            'https://boxfab.io/docs'
           )}\n`
         )
       } catch (err: any) {

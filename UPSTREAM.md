@@ -28,18 +28,18 @@ or `E2B_*` variable read is left in `src/`.
 | Change | Why |
 |---|---|
 | SDK imports `'e2b'` → `'boxfab'` (code, generated TypeScript templates, test mocks); the CLI's own `E2B_*` variables (`API_KEY`, `PROJECT_ID`, `TEAM_ID`, `DOCS_BASE`, `DASHBOARD_BASE`, `DOMAIN`) → `BOXFAB_*` | the `boxfab` SDK reads only `BOXFAB_*`, so a BoxFab install never picks up an E2B key or domain, nor sends a key to E2B's service |
-| `src/boxfab-env.ts` (overlay), imported first: `BOXFAB_DOMAIN` defaults to `boxfab.io` | the CLI's output and the build scripts it starts see the same domain as the SDK |
+| `src/boxfab-env.ts` (overlay), imported first: `BOXFAB_DOMAIN` defaults to `us-west.boxfab.dev` | the CLI's output and the build scripts it starts see the same domain as the SDK |
 | `src/user.ts` (overlay): config in `~/.boxfab/config.json` holding the API key only | BoxFab has no OAuth sign-in for CLIs |
 | `src/commands/auth/*` (overlay): `login` takes an API key (prompt or `--api-key`) and checks it against the API; `logout`, `info`; `configure` removed; `src/utils/token-refresh.ts` removed | same |
-| Dashboard link `${DASHBOARD_BASE}/sandboxes/<id>`, base `https://dashboard.boxfab.io` | the BoxFab dashboard's sandbox page |
-| Docs links `https://boxfab.dev/docs` | |
+| Dashboard link `${DASHBOARD_BASE}/sandboxes/<id>`, base `https://dashboard.us-west.boxfab.io` | the BoxFab dashboard's sandbox page |
+| Docs links `https://boxfab.io/docs` | |
 | Program name, help texts and messages: `e2b` → `boxfab`, product name in prose → BoxFab, `BOXFAB_API_KEY` in messages | user-facing name |
 | Internal identifiers that show up in error output (`E2BRequestError` and the like) → `BoxFab*` | they appear in error names and stack traces |
 | User-Agent integration `e2b-cli/<ver>` → `boxfab-cli/<ver>` | |
 | `template init`: generated Python and TypeScript import `boxfab`; `e2b:build:*` targets → `boxfab:build:*`; `npm`/`pip install boxfab` hints; README template (overlay); `template create`'s Python example | generated projects target BoxFab |
 | Monorepo paths (`../js-sdk/src`, `../dockerfile-utils-js`) removed from tsconfig, vitest and tsdown configs; `pnpm build` → `npm run build` | standalone repository using the published packages |
 | `init.ts` catch value narrowed with `String(err)`; generated-code test fixtures excluded from type-checking | the published SDK's type declarations are stricter than its source |
-| Tests: same rewrites; `BOXFAB_*` variables; domain default `boxfab.io`; `vi.mock('boxfab')`; User-Agent `boxfab-js-sdk/`; `tests/boxfab-env.setup.ts` (overlay) sets the domain default in every test worker and refuses to run against an E2B domain | tests exercise BoxFab only |
+| Tests: same rewrites; `BOXFAB_*` variables; domain default `us-west.boxfab.dev`; `vi.mock('boxfab')`; User-Agent `boxfab-js-sdk/`; `tests/boxfab-env.setup.ts` (overlay) sets the domain default in every test worker and refuses to run against an E2B domain | tests exercise BoxFab only |
 
 `scripts/postbuild.mjs` checks the built bundle: it must contain the `boxfab` SDK's BoxFab
 messages and must not read an `E2B_*` configuration variable or link to e2b.dev / e2b.app (the

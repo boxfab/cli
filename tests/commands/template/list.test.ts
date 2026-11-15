@@ -5,7 +5,7 @@ import { isDebug, runCli } from '../../setup'
 
 const userConfig = getUserConfig()
 const apiKey = process.env.BOXFAB_API_KEY || userConfig?.projectApiKey
-const domain = process.env.BOXFAB_DOMAIN || 'boxfab.io'
+const domain = process.env.BOXFAB_DOMAIN || 'us-west.boxfab.dev'
 const shouldSkip = !apiKey || isDebug
 const integrationTest = test.skipIf(shouldSkip)
 const timeoutMs = 120_000

@@ -27,7 +27,7 @@ const domain =
   process.env.BOXFAB_DOMAIN ||
   userConfig?.BOXFAB_DOMAIN ||
   userConfig?.domain ||
-  'boxfab.io'
+  'us-west.boxfab.dev'
 const apiKey = process.env.BOXFAB_API_KEY || userConfig?.projectApiKey
 const shouldSkip = !apiKey || isDebug
 const integrationTest = test.skipIf(shouldSkip)
