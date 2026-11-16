@@ -16,7 +16,7 @@ export const program = new commander.Command()
     )} then use our SDKs to create sandboxes from these templates.
 
 Visit ${asPrimary(
-      'BoxFab docs (https://boxfab.dev/docs)'
+      'BoxFab docs (https://boxfab.io/docs)'
     )} to learn how to create sandbox templates and start sandboxes.
 `
   )

@@ -2,6 +2,17 @@
 
 Upstream changes are in `CHANGELOG-E2B.md`.
 
+## 0.1.0-alpha.5 (2026-11-16)
+
+- Default domain `us-west.boxfab.dev`: BoxFab's first region. `boxfab.io` (the previous default)
+  does not serve the API, so 0.1.0-alpha.4 and older need `BOXFAB_DOMAIN=us-west.boxfab.dev`.
+- Dashboard links point to `https://dashboard.us-west.boxfab.io`, docs links to
+  `https://boxfab.io/docs`; the package homepage is `https://boxfab.io`.
+- Bundled `boxfab` SDK 0.1.0-alpha.5 (was 0.1.0-alpha.2): the same default domain, and `glob` 14 for
+  the `glob`/`minimatch` advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit` still
+  reports them through `@npmcli/package-json` 7, which uses `glob` 13; upstream's CLI uses the same
+  version, and this follows it.
+
 ## 0.1.0-alpha.4 (2026-11-13)
 
 - One `LICENSE` file: the MIT text with the upstream copyright line (FOUNDRYLABS, INC.) and

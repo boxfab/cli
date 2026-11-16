@@ -9,7 +9,7 @@ const text = readFileSync(FILE, 'utf8')
 
 const MUST = [
   // boxfab SDK: missing-key message and the template-build error (both rewritten by that SDK).
-  'Get one from your BoxFab administrator or the dashboard at https://dashboard.boxfab.io',
+  'Get one from your BoxFab administrator or the dashboard at https://dashboard.us-west.boxfab.io',
   'Templates based on other templates can only be built using the BoxFab API.',
   // the CLI's own configuration
   'BOXFAB_API_KEY',

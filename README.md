@@ -1,6 +1,6 @@
 # BoxFab CLI
 
-Command-line interface for [BoxFab](https://boxfab.dev): start sandboxes, open a terminal in
+Command-line interface for [BoxFab](https://boxfab.io): start sandboxes, open a terminal in
 them, run commands, and manage sandbox templates.
 
 > **Alpha.** Commands and output may still change between releases.
@@ -16,7 +16,7 @@ boxfab --version
 
 ## Log in
 
-Get an API key from the [BoxFab dashboard](https://dashboard.boxfab.io) or your BoxFab
+Get an API key from the [BoxFab dashboard](https://dashboard.us-west.boxfab.io) or your BoxFab
 administrator, then:
 
 ```bash
@@ -55,14 +55,14 @@ boxfab template delete <template>
 
 Generated templates use the BoxFab SDKs: Python (`pip install boxfab`,
 [PyPI](https://pypi.org/project/boxfab/)) and TypeScript (`npm install boxfab`,
-[npm](https://www.npmjs.com/package/boxfab)). Both read `BOXFAB_API_KEY` and default to `boxfab.io`.
+[npm](https://www.npmjs.com/package/boxfab)). Both read `BOXFAB_API_KEY` and default to `us-west.boxfab.dev`.
 
 ## Configuration
 
 | Variable | Default | Purpose |
 |---|---|---|
 | `BOXFAB_API_KEY` | key from `boxfab auth login` | API key |
-| `BOXFAB_DOMAIN` | `boxfab.io` | BoxFab domain (for a self-hosted or staging deployment) |
+| `BOXFAB_DOMAIN` | `us-west.boxfab.dev` | BoxFab domain (for a self-hosted or staging deployment) |
 | `BOXFAB_DEBUG` | | `true` prints request details |
 | `NO_UPDATE_NOTIFIER` | | set to skip the new-version check |
 
@@ -70,7 +70,7 @@ Only `BOXFAB_*` variables are read.
 
 ## Documentation
 
-[boxfab.dev/docs](https://boxfab.dev/docs)
+[boxfab.io/docs](https://boxfab.io/docs)
 
 ## Under the hood
 
@@ -82,7 +82,7 @@ the open-source E2B CLI; [UPSTREAM.md](UPSTREAM.md) lists every change.
 as well. Set both variables, the domain first:
 
 ```bash
-export E2B_DOMAIN=boxfab.io
+export E2B_DOMAIN=us-west.boxfab.dev
 export E2B_API_KEY="<your BoxFab API key>"
 ```
 

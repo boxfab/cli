@@ -293,7 +293,7 @@ export const migrateCommand = new commander.Command('migrate')
 
         console.log(
           `\nLearn more about Template SDK: ${asPrimary(
-            'https://boxfab.dev/docs'
+            'https://boxfab.io/docs'
           )}\n`
         )
         success = true

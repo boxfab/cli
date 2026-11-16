@@ -51,7 +51,7 @@ export const configOption = new commander.Option(
   '--config <e2b-toml>',
   `specify path to the BoxFab config toml. By default BoxFab tries to find ${asBold(
     './e2b.toml'
-  )} in root directory. We recommend using the new build system (https://boxfab.dev/docs/template/defining-template) that does not use config files.`
+  )} in root directory. We recommend using the new build system (https://boxfab.io/docs/template/defining-template) that does not use config files.`
 )
 
 // Accepted but ignored by commands that used to read e2b.toml, so existing
@@ -79,7 +79,7 @@ export function warnIgnoredConfigOption(opts: { config?: string }) {
 
 export const projectOption = new commander.Option(
   '-t, --project <project-id>',
-  'specify the project ID that the operation will be associated with. You can find project ID in the project settings in the BoxFab dashboard (https://dashboard.boxfab.io).'
+  'specify the project ID that the operation will be associated with. You can find project ID in the project settings in the BoxFab dashboard (https://dashboard.us-west.boxfab.io).'
 )
 
 export const deprecatedTeamOption = new commander.Option(

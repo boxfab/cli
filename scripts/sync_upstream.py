@@ -33,8 +33,8 @@ UPSTREAM_TAG = "@e2b/cli@2.23.0"
 UPSTREAM_COMMIT = "a91e33a3014a7644a2d39e03501d25b21ad727c0"
 CLI_SUBDIR = "packages/cli"
 
-DOCS = "https://boxfab.dev/docs"
-DASHBOARD = "https://dashboard.boxfab.io"
+DOCS = "https://boxfab.io/docs"
+DASHBOARD = "https://dashboard.us-west.boxfab.io"
 
 COPY = ["src", "tests", "tsconfig.json", "tsdown.config.ts", "vitest.config.ts"]
 RENAME = {"CHANGELOG.md": "CHANGELOG-E2B.md"}
@@ -170,7 +170,7 @@ REGEX = [
     ("tests/**/*.ts", r"(['`])from e2b import\b", r"\1from boxfab import", None),
     ("tests/**/*.ts", r"\be2b-cli/", "boxfab-cli/", None),
     ("tests/**/*.ts", r"\be2b-js-sdk\\?/", lambda m: m.group(0).replace("e2b", "boxfab"), None),
-    ("tests/**/*.ts", r"'e2b\.app'", "'boxfab.io'", 4),
+    ("tests/**/*.ts", r"'e2b\.app'", "'us-west.boxfab.dev'", 4),
     ("tests/**/*.ts", r"\bE2B_(API_KEY|DOMAIN|DEBUG|ACCESS_TOKEN|API_URL|SANDBOX_URL|PROJECT_ID|TEAM_ID)\b", r"BOXFAB_\1", None),
     ("tests/**/*.ts", r"from 'e2b'", "from 'boxfab'", None),
     # Module mocks and dynamic imports must name the module the CLI now imports.
