@@ -1,6 +1,6 @@
 {
   "name": "@boxfab/cli",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.5",
   "description": "BoxFab command-line interface: create, connect to and manage BoxFab sandboxes and templates",
   "homepage": "https://boxfab.io",
   "repository": {
@@ -39,7 +39,7 @@
     "@npmcli/package-json": "^7.0.5",
     "async-listen": "^3.1.0",
     "boxen": "^7.1.1",
-    "boxfab": "0.1.0-alpha.2",
+    "boxfab": "0.1.0-alpha.5",
     "chalk": "^5.6.2",
     "cli-highlight": "^2.1.11",
     "commander": "^11.1.0",
